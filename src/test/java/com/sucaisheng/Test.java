@@ -28,6 +28,7 @@ public class Test {
             System.out.println(user);
         }
         //关闭流
+        sqlSession.close();
         in.close();
     }
 }
