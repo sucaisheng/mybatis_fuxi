@@ -1,4 +1,4 @@
-package com.sucaisheng;
+package com.sucaisheng.Test;
 
 import com.sucaisheng.dao.IUserDao;
 import com.sucaisheng.domain.User;
