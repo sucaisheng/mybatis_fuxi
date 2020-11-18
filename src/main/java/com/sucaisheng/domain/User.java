@@ -2,6 +2,7 @@ package com.sucaisheng.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class User implements Serializable {
     private Integer id;
@@ -9,6 +10,15 @@ public class User implements Serializable {
     private String address;
     private String sex;
     private Date birthday;
+    private List<Account> accountList;
+
+    public List<Account> getAccountList() {
+        return accountList;
+    }
+
+    public void setAccountList(List<Account> accountList) {
+        this.accountList = accountList;
+    }
 
     public Integer getId() {
         return id;
@@ -52,7 +62,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
+        return super.toString() + "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", address='" + address + '\'' +

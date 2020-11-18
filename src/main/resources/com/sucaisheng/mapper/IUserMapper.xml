@@ -10,8 +10,17 @@
         <result property="money" column="money"></result>
         <association property="user" column="uid" javaType="user" select="com.sucaisheng.mapper.IUserMapper.selectUserById"></association>
     </resultMap>
+    
+    <resultMap id="UserAndAccount" type="User">
+        <id property="id" column="id"></id>
+        <result property="address" column="address"></result>
+        <result property="username" column="username"></result>
+        <result property="sex" column="sex"></result>
+        <result property="birthday" column="birthday"></result>
+        <collection property="accountList" ofType="Account" column="id" select="com.sucaisheng.mapper.IUserMapper.selectAccountByid"></collection>
+    </resultMap>
 
-    <select id="selectAllUser" resultType="User">
+    <select id="selectAllUser" resultMap="UserAndAccount">
         select * from user
     </select>
 
@@ -21,6 +30,10 @@
 
     <select id="selectAllAccount" resultMap="account">
         select * from account
+    </select>
+
+    <select id="selectAccountByid" parameterType="int" resultType="Account">
+        select * from account where uid = #{id}
     </select>
 
 </mapper>

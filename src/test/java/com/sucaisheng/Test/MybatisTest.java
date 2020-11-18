@@ -1,7 +1,8 @@
 package com.sucaisheng.Test;
 
-import com.sucaisheng.dao.IUserDao;
+import com.sucaisheng.domain.Account;
 import com.sucaisheng.domain.User;
+import com.sucaisheng.mapper.IUserMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -11,39 +12,48 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.InputStream;
-import java.util.Date;
+import java.util.List;
+
 
 public class MybatisTest {
-    private InputStream in;
+    private InputStream resourceAsStream;
     private SqlSession sqlSession;
 
     @Before
     public void init() throws Exception{
-        //获取配置信息流
-        in = Resources.getResourceAsStream("SqlMapperConfig.xml");
-        //创建SQLSession工厂
-        SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(in);
+        //获取配置文件
+        resourceAsStream = Resources.getResourceAsStream("sqlMapperConfig.xml");
+        //创建工厂对象
+        SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
         //获取SQLSession对象
-        sqlSession = factory.openSession();
+        sqlSession = sessionFactory.openSession();
     }
 
     @After
     public void destroy() throws Exception{
         sqlSession.commit();
+        resourceAsStream.close();
         sqlSession.close();
-        in.close();
     }
 
     @Test
-    public void insertTest(){
-        User user = new User();
-        user.setUsername("su");
-        user.setAddress("贵州");
-        user.setSex("男");
-        user.setBirthday(new Date());
-        //获取dao代理对象
-        IUserDao mapper = sqlSession.getMapper(IUserDao.class);
-        //执行添加用户方法
-        mapper.addUser(user);
+    public void selectAccount(){
+        //获取dao的代理对象
+        IUserMapper mapper = sqlSession.getMapper(IUserMapper.class);
+        List<Account> accountList = mapper.selectAllAccount();
+        for (Account a : accountList){
+            System.out.println(a);
+        }
+    }
+
+    @Test
+    public void selectAllUserAndAccount(){
+        IUserMapper mapper = sqlSession.getMapper(IUserMapper.class);
+        List<User> users = mapper.selectAllUser();
+        for (User u : users){
+            for (Account account : u.getAccountList()){
+                System.out.println(account);
+            }
+        }
     }
 }

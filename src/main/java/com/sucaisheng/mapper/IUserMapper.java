@@ -18,5 +18,18 @@ public interface IUserMapper {
      */
     public List<Account> selectAllAccount();
 
+    /**
+     * 根据id查找用户
+     * @param id
+     * @return
+     */
     public User selectUserById(int id);
+
+    /**
+     * 根据id查询账户
+     * @param id
+     * @return
+     */
+    public List<Account> selectAccountByid(int id);
+
 }
