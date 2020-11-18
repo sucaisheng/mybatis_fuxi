@@ -1,4 +1,4 @@
-package com.sucaisheng;
+package com.sucaisheng.Test;
 
 import com.sucaisheng.mapper.IUserMapper;
 import com.sucaisheng.domain.User;
