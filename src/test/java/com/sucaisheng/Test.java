@@ -1,6 +1,6 @@
 package com.sucaisheng;
 
-import com.sucaisheng.dao.IUserDao;
+import com.sucaisheng.mapper.IUserMapper;
 import com.sucaisheng.domain.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -20,7 +20,7 @@ public class Test {
         //获取SQLSession对象
         SqlSession sqlSession = factory.openSession();
         //获取dao的代理对象
-        IUserDao mapper = sqlSession.getMapper(IUserDao.class);
+        IUserMapper mapper = sqlSession.getMapper(IUserMapper.class);
         //执行查询所有方法
         List<User> userList = mapper.selectAllUser();
         //遍历userList

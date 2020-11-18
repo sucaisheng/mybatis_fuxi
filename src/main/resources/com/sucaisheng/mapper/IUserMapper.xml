@@ -3,9 +3,24 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.sucaisheng.dao.IUserDao">
-    <select id="selectAllUser" resultType="com.sucaisheng.domain.User">
+<mapper namespace="com.sucaisheng.mapper.IUserMapper">
+    <resultMap id="account" type="Account">
+        <id property="id" column="id"></id>
+        <result property="uid" column="uid"></result>
+        <result property="money" column="money"></result>
+        <association property="user" column="uid" javaType="user" select="com.sucaisheng.mapper.IUserMapper.selectUserById"></association>
+    </resultMap>
+
+    <select id="selectAllUser" resultType="User">
         select * from user
+    </select>
+
+    <select id="selectUserById" resultType="user" parameterType="int">
+        select * from user where id = #{id}
+    </select>
+
+    <select id="selectAllAccount" resultMap="account">
+        select * from account
     </select>
 
 </mapper>

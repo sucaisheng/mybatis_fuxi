@@ -3,21 +3,37 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
+    <!--配置properties-->
+    <properties resource="jdbc.properties"></properties>
+    
+    <!--配置settings-->
+    <settings>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
+
+    <!--配置实体类别名-->
+    <typeAliases>
+        <package name="com.sucaisheng.domain"/>
+    </typeAliases>
+
     <!--配资环境-->
     <environments default="mysql">
         <!--配资mysql环境-->
         <environment id="mysql">
             <transactionManager type="JDBC"></transactionManager>
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/mybatis?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=GMT"/>
-                <property name="username" value="root"/>
-                <property name="password" value="15186478704scs?"/>
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
             </dataSource>
         </environment>
     </environments>
     <!--配资mapper映射-->
     <mappers>
-        <mapper resource="com/sucaisheng/mapper/IUserMapper.xml"></mapper>
+        <!--<mapper resource="com/sucaisheng/mapper/IUserMapper.xml"></mapper>-->
+        <package name="com.sucaisheng.mapper"></package>
     </mappers>
 </configuration>
